@@ -1,10 +1,10 @@
 import openpyxl as ox
-from mod import components
+from components import _s as sheet0
 
 book = ox.load_workbook('Firewall.xlsx', data_only=True)
 
 sheet_1 = book.worksheets[1]
-policy=[]
+policy = []
 
 for row in range(13, sheet_1.max_row + 1):
     # src = sheet_1[row][2].value
@@ -28,8 +28,4 @@ for row in range(13, sheet_1.max_row + 1):
         # policy.append(_l)
 print("ZALYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYPA")
 
-
-comp = components
-print(comp)
-
-
+print(sheet0)
