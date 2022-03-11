@@ -1,13 +1,30 @@
-import openpyxl
+import openpyxl as ox
 
-book = openpyxl.open('Firewall.xlsx', read_only=True)
+book = ox.load_workbook('Firewall.xlsx', data_only=True)
 
-sheet = book.active
-cells = sheet
-print(sheet [16][6].value)
+sheet_1 = book.worksheets[1]
+_policy=[]
 
-for row in range (1,sheet.max_row+1):
-    src = sheet[row][3]
-    src_name = sheet[row][4]
-    src_ip = sheet[row][5]
-    print (row, src.value,src_ip.value,src_name.value)
+for row in range(13, sheet_1.max_row + 1):
+    # src = sheet_1[row][2].value
+    src_name = sheet_1[row][3].value
+    src_ip = sheet_1[row][4].value
+    # dst = sheet_1[row][6].value
+    dst_name = sheet_1[row][7].value
+    dst_ip = sheet_1[row][8].value
+    port = sheet_1[row][9].value
+    # print(row, src_name, src_ip, dst_name, dst_ip, port)
+    _l = [row, src_name, src_ip, dst_name, dst_ip, port]
+    _s = ''
+
+    for i in _l:
+        if i in ['#N/A', 'None', None] or str(i).find('N/A') != -1:
+            _s = ''
+            break
+        _s += str(i) + ' || '
+    if _s != '':
+        print(_s)
+        _policy.append(_l)
+
+
+
