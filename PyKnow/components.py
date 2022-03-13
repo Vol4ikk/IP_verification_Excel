@@ -1,6 +1,6 @@
 import openpyxl as ox
 
-book = ox.load_workbook('../Firewall.xlsx', data_only=True)
+book = ox.load_workbook('../../Firewall.xlsx', data_only=True)
 
 sheet_0 = book.worksheets[0]
 policy = []

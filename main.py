@@ -1,5 +1,5 @@
 import openpyxl as ox
-from components import _s as sheet0
+from PyKnow.components import _s as sheet0
 
 book = ox.load_workbook('Firewall.xlsx', data_only=True)
 
