@@ -1,7 +1,3 @@
-r = int(input())
+g = [1, 3, 4, [], '', 'hi', [1,2], 578]
+print(list(filter(None, g)))
 
-while r > 0:
-    i = int(input())
-    r = r - i
-    continue
-print('Довольно!')
