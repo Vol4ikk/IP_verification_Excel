@@ -13,6 +13,7 @@ def check_ip(ip):
         return False  # Вернуть False
 
 
+print('Для работы костыля положите Firewall.xlsx в ту же папку \n\n\n')
 warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')  # Обрабатываем ошибку расширенных проверок
 
 book = ox.load_workbook('Firewall.xlsx', data_only=True)  # Объявляем чтение книги
@@ -39,29 +40,16 @@ for row in range(15, book.worksheets[0].max_row + 1):  # Вывод с 15 стр
             prt = str(prt).split('\n')
             proc_dic['port'] = prt
 
+        for pt in proc_dic['port']:
+            gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)
+            if gno is None:
+                print(f'В строке №{row} порт/протокол {pt} указан некорректно, проверьте')
 
-        print(set(proc_dic['port'])) # попробовать суммировать список и сделать set (непровторяющимся)
-        test_port = [pt for pt in port if port is None]
-        print(test_port)
-
-
-        # if '\n' in main_str[1]:
-        #     print(f'В строке {row} ошибка, указано несколько имен объектов. Одно имя == один адрес.')
-        # if '\n' in main_str[2]:
-        #     print(f'В строке {row} ошибка, указано несколько ip адресов. Один адрес == одно имя.')
-        # if '\n' not in main_str[2]:
-        #     if check_ip(main_str[2]) is False:
-        #         print(f'Адрес "{main_str[2]}" в строке {row} не является хостом или сетью. Укажите в формате *.*.*.*/*')
-
-
-
-
-
-        # if '\n' not in main_str[3]:
-        #     print(f'В строке {row} ошибка, проверьте порт/протокол {main_str[3]}')
-        # if 'TCP/' or 'UDP/' or None or '\n' not in sheet[row][7].value:
-        #
-        #     print(type(sheet[row][7].value))
-            # print(type(main_str[3]), main_str)
-            # print(f'В строке {row} ошибка, проверьте порт/протокол {sheet[row][7].value}')
-    # print(main_str[3])
+        if '\n' in main_str[1]:
+            print(f'В строке №{row} ошибка, указано несколько имен объектов. Одно имя == один адрес.')
+        if '\n' in main_str[2]:
+            print(f'В строке №{row} ошибка, указано несколько ip адресов. Один адрес == одно имя.')
+        if '\n' not in main_str[2]:
+            if check_ip(main_str[2]) is False:
+                print(
+                    f'Адрес "{main_str[2]}" в строке №{row} не является хостом или сетью. Укажите в формате *.*.*.*/*')
