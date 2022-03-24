@@ -1,3 +1,6 @@
+from tabulate import tabulate  # Вывод табличкой, а не кортежами
+from colorama import init, Fore, Back, Style # Раскраски, выделения и все такое
+
 # обычный вывод print
 ip = '192.168.11.1'
 mask = '/30'

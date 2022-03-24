@@ -1,7 +1,7 @@
 import openpyxl as ox  # работа с Excel
-from tabulate import tabulate  # Вывод табличкой, а не кортежами
 import ipaddress as ipa  # Работа с адресами
 import warnings  # Обработчик ошибок без доп.функций
+from colorama import init, Fore, Back, Style  # Раскраски, выделения и все такое
 import re
 
 
@@ -13,7 +13,10 @@ def check_ip(ip):
         return False  # Вернуть False
 
 
-print('Для работы костыля положите Firewall.xlsx в ту же папку \n\n\n')
+print('Для работы костыля положите Firewall.xlsx в ту же папку и нажмите Enter')
+
+input()
+
 warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')  # Обрабатываем ошибку расширенных проверок
 
 book = ox.load_workbook('Firewall.xlsx', data_only=True)  # Объявляем чтение книги
@@ -40,8 +43,8 @@ for row in range(15, book.worksheets[0].max_row + 1):  # Вывод с 15 стр
             prt = str(prt).split('\n')
             proc_dic['port'] = prt
 
-        for pt in proc_dic['port']:
-            gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)
+        for pt in proc_dic['port']:  # Из словаря дёргаем поры
+            gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)  # Регулярный выражением отбираем в gno
             if gno is None:
                 print(f'В строке №{row} порт/протокол {pt} указан некорректно, проверьте')
 
@@ -53,3 +56,5 @@ for row in range(15, book.worksheets[0].max_row + 1):  # Вывод с 15 стр
             if check_ip(main_str[2]) is False:
                 print(
                     f'Адрес "{main_str[2]}" в строке №{row} не является хостом или сетью. Укажите в формате *.*.*.*/*')
+
+input()
