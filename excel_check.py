@@ -44,8 +44,8 @@ for row in range(15, book.worksheets[0].max_row + 1):  # Вывод с 15 стр
             proc_dic['port'] = prt
 
         for pt in proc_dic['port']:  # Из словаря дёргаем поры
-            gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)  # Регулярный выражением отбираем в gno
-            if gno is None:
+            gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)  # Регулярным выражением проверяем правильность значения
+            if gno is None: # Если поиск не дал результатов - записывается None
                 print(f'В строке №{row} порт/протокол {pt} указан некорректно, проверьте')
 
         if '\n' in main_str[1]:
