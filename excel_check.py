@@ -1,7 +1,6 @@
 import openpyxl as ox  # работа с Excel
 import ipaddress as ipa  # Работа с адресами
 import warnings  # Обработчик ошибок без доп.функций
-from colorama import init, Fore, Back, Style  # Раскраски, выделения и все такое
 import re
 
 
@@ -14,7 +13,6 @@ def check_ip(ip):
 
 
 print('Для работы костыля положите Firewall.xlsx в ту же папку и нажмите Enter')
-
 input()
 
 warnings.filterwarnings('ignore', category=UserWarning, module='openpyxl')  # Обрабатываем ошибку расширенных проверок
@@ -45,7 +43,7 @@ for row in range(15, book.worksheets[0].max_row + 1):  # Вывод с 15 стр
 
         for pt in proc_dic['port']:  # Из словаря дёргаем поры
             gno = re.search(r"TCP/|UDP/|ICMP|GRE|None", pt)  # Регулярным выражением проверяем правильность значения
-            if gno is None: # Если поиск не дал результатов - записывается None
+            if gno is None:  # Если поиск не дал результатов - записывается None
                 print(f'В строке №{row} порт/протокол {pt} указан некорректно, проверьте')
 
         if '\n' in main_str[1]:
